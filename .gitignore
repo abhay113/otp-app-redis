@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+logs/*.log
+
+# Redis data (if stored locally)
+dump.rdb
+*.log
+
+# Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+
+# IDE/Editor-specific files
+.idea/
+.vscode/
+*.iml

@@ -28,7 +28,6 @@ const createUser = async (userData) => {
   try {
     const { name, email, password } = userData;
 
-    // Insert user data into the 'users' table
     const { data, error } = await supabase.from('users').insert([{ name, email, password }]);
     if (error) {
       console.error('Error inserting user:', error);
@@ -43,14 +42,12 @@ const createUser = async (userData) => {
 
 const getUserByEmail = async (email) => {
   try {
-    const { data, error } = await supabase.from("users").select().eq("email", email);
+    const { data, error } = await supabase.from("users").select().eq("email", email).single();
     if (error) throw error;
-    return data[0];
+    return data;
   } catch (error) {
     throw error;
   }
 };
-
-
 
 module.exports = { createUser, getUserByEmail, getUsers };

@@ -2,11 +2,21 @@ const redisClient = require('../models/redisModel');
 const mailer = require('../utils/mailer');
 const { generateOtpCode } = require('../utils/otp');
 
-const generateAndSendOtp = async (email) => {
+exports.generateAndSendOtp = async (email) => {
   const otp = generateOtpCode();
 
+  // Store OTP in Redis with 5-minute expiration
+  await redisClient.set(email, otp, 'EX', 300);
+
   // Send OTP via email
-  await mailer.sendOtp(email, otp);
+  await mailer.sendMail(email, 'Your OTP Code', `<p>Your OTP is: <strong>${otp}</strong></p>`);
+
+  return otp;
 };
 
-module.exports = { generateAndSendOtp };
+exports.validateOtp = async (email, otp) => {
+  const storedOtp = await redisClient.get(email);
+  if (!storedOtp) throw new Error('OTP expired or not found');
+  if (storedOtp !== otp) throw new Error('Invalid OTP');
+  return true;
+};

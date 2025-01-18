@@ -4,15 +4,13 @@ const transporter = nodemailer.createTransport({
   port: 587,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
+    pass: process.env.EMAIL_PASS,
+  },
 });
 
-const sendmail = (to, sub, msg) => {
-  transporter.sendMail({
-    to: to,
-    subject: sub,
-    html: msg
-  })
-  console.log("mail sent !");
-}
+const sendMail = async (to, subject, html) => {
+  await transporter.sendMail({ to, subject, html });
+  console.log(`Email sent to ${to}`);
+};
+
+module.exports = { sendMail };

@@ -1,1 +1,28 @@
-<p>create-user works!</p>
+<div class="create-user-container">
+    <mat-card class="create-user-card">
+      <mat-card-title>Create User</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="input-field">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" type="text" />
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="input-field">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" />
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="input-field">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password" />
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" type="submit" [disabled]="createUserForm.invalid" class="submit-button">
+            Create User
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

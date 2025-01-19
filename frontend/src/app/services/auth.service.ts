@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   createUser(name: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.BASE_URL}/user/generate-otp`, {
+    return this.http.post(`${this.BASE_URL}/user/createUser`, {
       name,
       email,
       password,

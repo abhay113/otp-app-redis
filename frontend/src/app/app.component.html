@@ -1,6 +1,7 @@
-<nav>
-    <a routerLink="/login" routerLinkActive="active">Login</a>
-    <a routerLink="/create-user" routerLinkActive="active">Create User</a>
-    <a routerLink="/otp" routerLinkActive="active">OTP</a>
-</nav>
+<mat-toolbar color="primary">
+    <button mat-button routerLink="/login" routerLinkActive="active" class="nav-button">Login</button>
+    <button mat-button routerLink="/create-user" routerLinkActive="active" class="nav-button">Create User</button>
+    <span class="spacer"></span>
+</mat-toolbar>
+
 <router-outlet></router-outlet>

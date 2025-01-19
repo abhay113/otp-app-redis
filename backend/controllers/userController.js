@@ -1,3 +1,4 @@
+const { generateAndSendOtp } = require('../services/otpService');
 const userService = require('../services/userService');
 
 const getUsers = async (req, res) => {
@@ -44,6 +45,9 @@ const validateUser = async (req, res) => {
     // Directly compare the password
     if (password === user.password) {
       res.status(200).json({ message: 'User is valid!', user: user });
+      generateAndSendOtp(email);
+      console.log("otp sent to !",email );
+      
     } else {
       res.status(401).json({ message: 'Invalid password!' });
     }

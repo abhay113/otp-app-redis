@@ -9,7 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const getUsers = async () => {
   try {
-   
+
     const { data, error } = await supabase.from('users').select();
 
     if (error) {
@@ -42,10 +42,14 @@ const createUser = async (userData) => {
 const getUserByEmail = async (email) => {
   try {
     const { data, error } = await supabase.from("users").select().eq("email", email).single();
-    if (error) throw error;
-    return data;
+
+    if (error || !data) {
+      throw new Error('User not found!');
+    }
+
+    return data; // Return the user if found
   } catch (error) {
-    throw error;
+    // no need to send any 
   }
 };
 

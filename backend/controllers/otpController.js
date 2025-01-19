@@ -15,8 +15,6 @@ const validateOtp = async (req, res) => {
   }
 };
 
-
-
 const generateOtp = async (req, res) => {
   const { email } = req.body;
 

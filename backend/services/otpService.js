@@ -9,7 +9,7 @@ exports.generateAndSendOtp = async (email) => {
   await redisClient.set(email, otp, 'EX', 300);
 
   // Send OTP via email
-  await mailer.sendMail(email, 'Your OTP Code', `<p>Your OTP is: <strong>${otp}</strong></p>`);
+  await mailer.sendMail(email, 'OTP for verification', `<p>Your OTP is: <strong>${otp}</strong></p>`);
 
   return otp;
 };

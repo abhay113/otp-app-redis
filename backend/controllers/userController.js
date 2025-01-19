@@ -26,20 +26,33 @@ const createUser = async (req, res) => {
   }
 };
 
-const validateUser = async (req, res) => {
-  const { email } = req.body;
 
-  if (!email) {
-    return res.status(400).json({ message: 'Email is required!' });
+const validateUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required!' });
   }
 
   try {
     const user = await userService.getUserByEmail(email);
-    res.status(200).json({ message: 'User is valid!', user: user });
-    console.log(user);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found!' });
+    }
+
+    // Directly compare the password
+    if (password === user.password) {
+      res.status(200).json({ message: 'User is valid!', user: user });
+    } else {
+      res.status(401).json({ message: 'Invalid password!' });
+    }
+
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    console.error('Error in validateUser controller:', error.message);
+    res.status(500).json({ message: 'Failed to validate user!', error: error.message });
   }
 };
+
 
 module.exports = { createUser, validateUser, getUsers };
